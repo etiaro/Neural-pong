@@ -1,0 +1,32 @@
+body{
+    background-color: darkslategray;
+    color: gray;
+    font: 14pt "Century Gothic", Futura, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.Pod{
+    position: absolute;
+    margin: 0;
+    padding: 0;
+}
+
+.Paddle{
+    background-color: white;
+    height: 5vh;
+    width: 20vw;
+}
+
+.Ball{
+    width: 5vh;
+    height: 5vh;
+    background-color: white;
+}
+
+.Speed{
+    position: absolute;
+    right: 0;
+    top: 0;
+}
