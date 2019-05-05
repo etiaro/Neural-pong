@@ -168,7 +168,7 @@ class Game extends React.Component{
                 <Pod type="up" position={this.state.position1}/>
                 <Pod type="down" position={this.state.position2}/>
                 <Ball position={this.state.ballHandler.ballPos}/>
-                <p class="Speed">Speed: {this.state.gameSpeed}</p>
+                <p className="Speed">Speed: {this.state.gameSpeed}</p>
             </div>
         );
     }

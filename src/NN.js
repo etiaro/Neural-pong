@@ -17,6 +17,7 @@ export default class NN{
             Math.abs(ballInfo.ballVelY)*100
         ];
         this.trainingSet.push({input: input});
+        if(this.trainingSet.length > 1000) this.trainingSet.shift();
     }
 
     addOutput(ballPos){
@@ -43,7 +44,7 @@ export default class NN{
     train(){
         const trainingSet = this.trainingSet;
         let trainer = new Trainer(this.network);
-        console.log(trainer.train(trainingSet));
+        console.log(trainer.train(trainingSet), trainingSet.length);
         /*for(let i = 0; true; i++){
             if(Math.abs(this.network.activate(trainingSet[i%trainingSet.length].input) - trainingSet[i%trainingSet.length].output) < .09){
                 console.log(this.network.activate(trainingSet[i%trainingSet.length].input), trainingSet[i%trainingSet.length].output, i);
