@@ -155,6 +155,7 @@ class Game extends React.Component{
                 <Pod type="up" position={this.state.pod1Controller.position}/>
                 <Pod type="down" position={this.state.pod2Controller.position}/>
                 <Ball position={this.state.ballController.ballPos}/>
+                <div class="starttext">{!this.state.started ? "Press SPACE or touch your screen to start game!" : ""}</div>
                 <Menu data={menuData} 
                     changeSpeed={(speed)=>this.changeGameSpeed(speed)}
                     changePod1={(props)=>this.state.pod1Controller.changeController(props)}

@@ -25,6 +25,13 @@ body{
     background-color: white;
 }
 
+.starttext{
+    position: fixed;
+    width: 100%;
+    text-align: center;
+    top: 60%;
+}
+
 .MenuBody{
     position: fixed;
     top: 0;
@@ -32,12 +39,11 @@ body{
     right: -250px;
     width: 250px;
     z-index: 1;
-    background-color: #111;
+    background-color: rgba(0,0,0,0.8);
     transition: 0.5s;
-    padding-top: 60px;
     padding-left: 20px;
     text-align: center;
-    overflow-y: scroll;
+    overflow-y: auto;
     clip-path: polygon(100% 0, 100% 100%, 20% 100%, 0 0);
 }
 .MenuIcon{
