@@ -1,4 +1,5 @@
-export default class BallHandler {
+
+export default class BallController {
     constructor(){
         this.restart();
     }
@@ -15,6 +16,7 @@ export default class BallHandler {
     }
 
     speedUpBall(){
+        this.ballSpeed *= 1.1;
     }
 
     handleCollision(poddlePos, poddleHit){
@@ -28,7 +30,7 @@ export default class BallHandler {
         }
     }
 
-    getAIInput(){
+    get AIInput(){
         return {ballX: this.ballPos.x, ballVelX: this.ballVel.x, ballVelY: this.ballVel.y};
     }
 
