@@ -46,7 +46,9 @@ export default class Menu extends React.Component{
         return(
             <div className="Menu">
                 <div id="MenuBody" className="MenuBody">
-                    <p>Speed</p>
+                    <p><a href="#" className="arrowbtn" onClick={()=>this.props.changeSpeed(this.props.data.gameSpeed-1)}>&larr;</a>
+                    Speed
+                    <a href="#" className="arrowbtn" onClick={()=>this.props.changeSpeed(this.props.data.gameSpeed+1)}>&rarr;</a></p>
                         <input type="range" className="slider" name="speed" min="1" max="1000" value={this.props.data.gameSpeed}
                         onInput={(e)=>this.props.changeSpeed(e.target.value)} onChange={(e)=>this.props.changeSpeed(e.target.value)}/>
                     <p>Up Poddle</p>

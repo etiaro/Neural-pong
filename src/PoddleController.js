@@ -23,6 +23,10 @@ export default class PoddleController{
 
         window.addEventListener("keydown", (e)=>this.handleKeyPress(e));
         window.addEventListener("keyup", (e)=>this.handleKeyPress(e));
+        window.addEventListener("touchmove", (e)=>this.handleTouch(e));
+        window.addEventListener("touchstart", (e)=>this.handleTouch(e));
+        window.addEventListener("touchend", (e)=>this.handleTouch(e));
+        window.addEventListener("touchcancel", (e)=>this.handleTouch(e));
     }
 
     handleKeyPress(event){
@@ -34,6 +38,13 @@ export default class PoddleController{
                 this.direction = -1;
             else if(event.keyCode === this.keyRight)
                 this.direction = 1;
+        }
+    }
+    handleTouch(event){
+        if(this.type === PoddleController.types.PLAYER){
+            this.position = event.changedTouches[0].pageX / document.documentElement.clientWidth - .1;
+            if(this.position <= 0.01) this.position = 0.01;
+            if(this.position > .8) this.position = .8;
         }
     }
 

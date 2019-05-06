@@ -78,12 +78,15 @@ class Game extends React.Component{
     }
     componentDidMount() {
         window.addEventListener("keydown", (e)=>this.handleKeyPress(e));
+        window.addEventListener("touchstart", (e)=>this.startGame());
     }
     componentWillUnmount() {
         window.removeEventListener("keydown", (e)=>this.handleKeyPress(e));
+        window.addEventListener("touchstart", (e)=>this.startGame());
     }
 
     startGame(){
+        if(this.state.started) return;
         this.setState({started: true});
         this.state.ballController.start();
         this.setState({rounds: this.state.rounds+1});
