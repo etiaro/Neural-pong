@@ -38,20 +38,39 @@ export default class BallController {
         const ballWidth = window.innerHeight / window.innerWidth * 0.05;
 
         //handle End-game
-        if(this.ballPos.y < 0 || this.ballPos.y > .95){
+        if(this.ballPos.y <= 0.001 || this.ballPos.y >= .9499){
             props.endGame();
         }
-        
-        this.ballPos.x += this.ballVel.x*this.ballSpeed*props.gameSpeed;
-        this.ballPos.y += this.ballVel.y*this.ballSpeed*props.gameSpeed;
 
-        //handle wall drop
-        if(this.ballPos.x < 0){
-            this.ballVel.x *= -1;
-            this.ballPos.x = 0;
-        } else if(this.ballPos.x > 1 - ballWidth){
-            this.ballVel.x *= -1;
-            this.ballPos.x = 1-ballWidth;
+        let scale = 1;
+        if(this.ballPos.y + this.ballVel.y*this.ballSpeed*props.gameSpeed < 0){
+            let move = Math.abs(this.ballVel.y*this.ballSpeed*props.gameSpeed);
+            let dis = this.ballPos.y;
+            scale = dis/move;
+        }   
+        if(this.ballPos.y + this.ballVel.y*this.ballSpeed*props.gameSpeed > .95){
+            let move = Math.abs(this.ballVel.y*this.ballSpeed*props.gameSpeed);
+            let dis = .95 - this.ballPos.y;
+            scale = dis/move;
+        }   
+
+        if(scale > 1 || scale < 0)
+           console.log(scale);
+
+        this.ballPos.x += this.ballVel.x*this.ballSpeed*props.gameSpeed*scale;
+        this.ballPos.y += this.ballVel.y*this.ballSpeed*props.gameSpeed*scale;
+
+        //handle wall drops
+        let OK = false;
+        while(!OK){
+            if(this.ballPos.x < 0){
+                this.ballVel.x *= -1;
+                this.ballPos.x *= -1;
+            }else if(this.ballPos.x > 1 - ballWidth){
+                this.ballVel.x *= -1;
+                this.ballPos.x = 1-ballWidth + (1-ballWidth - this.ballPos.x);
+            }else
+                OK = true;
         }
 
         //handle poddles drop

@@ -4,8 +4,10 @@
   "private": true,
   "dependencies": {
     "react": "^16.8.6",
+    "react-animated-burgers": "^1.2.6",
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.0",
+    "styled-components": "^4.2.0",
     "synaptic": "^1.1.4"
   },
   "scripts": {

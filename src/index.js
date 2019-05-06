@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Menu from './Menu.js'
 import NN from './NN.js';
 import BallController from './BallController.js';
-import './index.css';
 import PoddleController from './PoddleController.js';
+import './index.css';
 
 function Paddle(props){
     let style = {
@@ -51,8 +52,13 @@ class Game extends React.Component{
             pod2Controller: new PoddleController({network: new NN()}),//{type: PoddleController.types.PLAYER}),
             ballController: new BallController(),
             started: false,
+            pause: false,
             AI: new NN(),
-            gameSpeed: 1
+            gameSpeed: 1, 
+            rounds: 0,
+            hits: 0,
+            pod1Wins: 0,
+            pod2Wins: 0
         }
         setInterval(()=>this.nextFrame(), 1);
     }
@@ -61,10 +67,12 @@ class Game extends React.Component{
         if(event.type === "keydown")
             if(event.keyCode === 32 && this.state.started === false)
                 this.startGame();
+            if(event.keyCode === 80)
+                this.setState({paused: !this.state.paused});
             else if(event.keyCode === 38)
-                this.setState({gameSpeed: this.state.gameSpeed+1});
+                this.changeGameSpeed(this.state.gameSpeed+1);
             else if(event.keyCode === 40)
-                this.setState({gameSpeed: this.state.gameSpeed-1});
+                this.changeGameSpeed(this.state.gameSpeed-1);
 
     }
     componentDidMount() {
@@ -77,6 +85,7 @@ class Game extends React.Component{
     startGame(){
         this.setState({started: true});
         this.state.ballController.start();
+        this.setState({rounds: this.state.rounds+1});
     }
 
     endGame(){
@@ -92,7 +101,7 @@ class Game extends React.Component{
     }
 
     nextFrame(){
-        if(!this.state.started) return;
+        if(!this.state.started || this.state.paused) return;
 
         this.state.ballController.ballMove({
             pod1Pos: this.state.pod1Controller.position,
@@ -102,11 +111,13 @@ class Game extends React.Component{
                 let props = {ballPos: ballPos, AIInput: this.state.ballController.AIInput}
                 this.state.pod1Controller.shoot(props);
                 this.state.pod2Controller.opponentShoot(props);
+                this.setState({hits: this.state.hits+1});
             },
             pod2Hit: (ballPos) => {
                 let props = {ballPos: ballPos, AIInput: this.state.ballController.AIInput}
                 this.state.pod2Controller.shoot(props);
                 this.state.pod1Controller.opponentShoot(props);
+                this.setState({hits: this.state.hits+1});
             },
             gameSpeed: this.state.gameSpeed
         });
@@ -117,13 +128,31 @@ class Game extends React.Component{
         this.setState({});
     }
 
+    changeGameSpeed(speed){
+        if(speed < 1) speed = 1;
+        if(speed > 1000) speed = 1000; 
+        this.setState({gameSpeed: speed});
+    }
+
     render(){
+        let menuData = {
+            gameSpeed: this.state.gameSpeed,
+            pod1: this.state.pod1Controller.type,
+            pod2: this.state.pod2Controller.type,
+            rounds: this.state.rounds,
+            hits: this.state.hits,
+            pod1Wins: this.state.pod1Wins,
+            pod2Wins: this.state.pod2Wins
+        };
         return (
             <div className="Game">
                 <Pod type="up" position={this.state.pod1Controller.position}/>
                 <Pod type="down" position={this.state.pod2Controller.position}/>
                 <Ball position={this.state.ballController.ballPos}/>
-                <p className="Speed">Speed: {this.state.gameSpeed}</p>
+                <Menu data={menuData} 
+                    changeSpeed={(speed)=>this.changeGameSpeed(speed)}
+                    changePod1={(props)=>this.state.pod1Controller.changeController(props)}
+                    changePod2={(props)=>this.state.pod2Controller.changeController(props)}/>
             </div>
         );
     }

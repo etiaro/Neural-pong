@@ -19,22 +19,7 @@ export default class PoddleController{
         else
             this.type = PoddleController.types.NEURAL;
 
-        switch(this.type){
-            case PoddleController.types.PLAYER:
-                if(props.keyLeft)   this.keyLeft = props.keyLeft;
-                else                this.keyLeft = 39;
-                if(props.keyRight)  this.keyRight = props.keyRight;
-                else                this.keyRight = 37;
-            break;
-            default:
-            case PoddleController.types.NEURAL:
-                if(props.network)   this.network = props.network;
-                else                this.network = new NN();
-            break;
-            case PoddleController.types.TRAINED:
-                if(props.network)   this.network = props.network;
-                else                this.network = NN.level.MEDIUM;
-        }
+        this.changeController(props);
 
         window.addEventListener("keydown", (e)=>this.handleKeyPress(e));
         window.addEventListener("keyup", (e)=>this.handleKeyPress(e));
@@ -75,9 +60,31 @@ export default class PoddleController{
                     this.position -= 0.001*props.gameSpeed;
             }
         }
-
     }
+    changeController(props){
+        if(!props){
+            throw new Error("GIVE PROPS!");
+        } 
+        if(props.type)
+            this.type = props.type;
 
+        switch(this.type){
+            case PoddleController.types.PLAYER:
+                if(props.keyLeft)   this.keyLeft = props.keyLeft;
+                else                this.keyLeft = 37;
+                if(props.keyRight)  this.keyRight = props.keyRight;
+                else                this.keyRight = 39;
+            break;
+            default:
+            case PoddleController.types.NEURAL:
+                if(props.network)   this.network = props.network;
+                else                this.network = new NN();
+            break;
+            case PoddleController.types.TRAINED:
+                if(props.network)   this.network = props.network;
+                else                this.network = NN.level.MEDIUM;
+        }
+    }
     shoot(props){
         if(this.type !== PoddleController.types.NEURAL)
             return;

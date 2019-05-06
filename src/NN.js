@@ -49,7 +49,8 @@ export default class NN{
     train(){
         const trainingSet = this.trainingSet;
         let trainer = new Trainer(this.network);
-        console.log(trainer.train(trainingSet, {iterations: 20000, error: .001}));
+        //console.log(trainer.train(trainingSet));
+        trainer.train(trainingSet)
         /*for(let i = 0; true; i++){
             if(Math.abs(this.network.activate(trainingSet[i%trainingSet.length].input) - trainingSet[i%trainingSet.length].output) < .09){
                 console.log(this.network.activate(trainingSet[i%trainingSet.length].input), trainingSet[i%trainingSet.length].output, i);
