@@ -51,6 +51,7 @@ export default class Menu extends React.Component{
                     <a href="#" className="arrowbtn" onClick={()=>this.props.changeSpeed(this.props.data.gameSpeed+1)}>&rarr;</a></p>
                         <input type="range" className="slider" name="speed" min="1" max="1000" value={this.props.data.gameSpeed}
                         onInput={(e)=>this.props.changeSpeed(e.target.value)} onChange={(e)=>this.props.changeSpeed(e.target.value)}/>
+                    <p><input type="checkbox" name="autostart" onClick={()=>this.props.toggleAutostart()}/> Autostart </p>
                     <p>Up Poddle</p>
                     <div className="podChoose">
                         <button id="pod1plbtn" onClick={()=>this.changePod1(PoddleController.types.PLAYER)} 

@@ -63,6 +63,7 @@ button{
     padding: 5%;
     background-color: #484d4d;
     border: none;
+    font-family: 14pt "Century Gothic", Futura, sans-serif;
 }
 .btnChosen{
     background-color:  rgb(160, 43, 60);;

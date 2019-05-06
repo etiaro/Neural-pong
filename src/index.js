@@ -53,7 +53,7 @@ class Game extends React.Component{
             ballController: new BallController(),
             started: false,
             pause: false,
-            autostart: true,
+            autostart: false,
             AI: new NN(),
             gameSpeed: 1, 
             rounds: 0,
@@ -139,6 +139,9 @@ class Game extends React.Component{
         if(speed > 1000) speed = 1000; 
         this.setState({gameSpeed: speed});
     }
+    toggleAutostart(){
+        this.setState({autostart: !this.state.autostart});
+    }
 
     render(){
         const menuData = {
@@ -148,15 +151,18 @@ class Game extends React.Component{
             rounds: this.state.rounds,
             hits: this.state.hits,
             pod1Wins: this.state.pod1Wins,
-            pod2Wins: this.state.pod2Wins
+            pod2Wins: this.state.pod2Wins,
+            autostart: this.state.autostart
         };
+        const startText = <p>Press SPACE or touch your screen to start game<br/> To control in Player mode, use arrows or touchscreen</p>;
         return (
             <div className="Game">
                 <Pod type="up" position={this.state.pod1Controller.position}/>
                 <Pod type="down" position={this.state.pod2Controller.position}/>
                 <Ball position={this.state.ballController.ballPos}/>
-                <div class="starttext">{!this.state.started ? "Press SPACE or touch your screen to start game!" : ""}</div>
-                <Menu data={menuData} 
+                <div class="starttext">{!this.state.started ? startText : ""}</div>
+                <Menu data={menuData}
+                    toggleAutostart={()=>this.toggleAutostart()}
                     changeSpeed={(speed)=>this.changeGameSpeed(speed)}
                     changePod1={(props)=>this.state.pod1Controller.changeController(props)}
                     changePod2={(props)=>this.state.pod2Controller.changeController(props)}/>
