@@ -38,8 +38,8 @@ export default class BallController {
         const ballWidth = window.innerHeight / window.innerWidth * 0.05;
 
         //handle End-game
-        if(this.ballPos.y <= 0.001 || this.ballPos.y >= .9499){
-            props.endGame();
+        if(this.ballPos.y <= 0 || this.ballPos.y >= .95){
+            props.endGame(this.ballPos.y <= 0 ? 2 : 1);
         }
 
         let scale = 1;

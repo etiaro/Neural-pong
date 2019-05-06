@@ -53,6 +53,7 @@ class Game extends React.Component{
             ballController: new BallController(),
             started: false,
             pause: false,
+            autostart: true,
             AI: new NN(),
             gameSpeed: 1, 
             rounds: 0,
@@ -88,8 +89,10 @@ class Game extends React.Component{
         this.setState({rounds: this.state.rounds+1});
     }
 
-    endGame(){
+    endGame(winner){
         this.setState({started: false});
+        if(winner === 1) this.setState({pod1Wins: this.state.pod1Wins+1});
+        if(winner === 2) this.setState({pod2Wins: this.state.pod2Wins+1});
         
         this.state.pod1Controller.shoot({ballPos: this.state.ballController.ballPos});
         this.state.pod2Controller.shoot({ballPos: this.state.ballController.ballPos});
@@ -97,7 +100,7 @@ class Game extends React.Component{
         this.state.pod2Controller.restart();
         this.state.ballController.restart();
 
-        this.startGame();
+        if(this.state.autostart) this.startGame();
     }
 
     nextFrame(){
@@ -106,7 +109,7 @@ class Game extends React.Component{
         this.state.ballController.ballMove({
             pod1Pos: this.state.pod1Controller.position,
             pod2Pos: this.state.pod2Controller.position,
-            endGame: ()=>this.endGame(),
+            endGame: (winner)=>this.endGame(winner),
             pod1Hit: (ballPos) => {
                 let props = {ballPos: ballPos, AIInput: this.state.ballController.AIInput}
                 this.state.pod1Controller.shoot(props);
@@ -135,7 +138,7 @@ class Game extends React.Component{
     }
 
     render(){
-        let menuData = {
+        const menuData = {
             gameSpeed: this.state.gameSpeed,
             pod1: this.state.pod1Controller.type,
             pod2: this.state.pod2Controller.type,

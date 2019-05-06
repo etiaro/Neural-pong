@@ -37,7 +37,7 @@ body{
     padding-top: 60px;
     padding-left: 20px;
     text-align: center;
-    clip-path: polygon(100% 0, 100% 100%, 20px 100%, 0 0);
+    clip-path: polygon(100% 0, 100% 100%, 20% 100%, 0 0);
 }
 .MenuIcon{
     position: fixed;
@@ -46,8 +46,22 @@ body{
     z-index: 9999;
 }
 
-
-
+button{
+    width: 50%;
+    padding: 5%;
+    background-color: #484d4d;
+    border: none;
+}
+.btnChosen{
+    background-color:  rgb(160, 43, 60);;
+}
+.podChoose{
+    border-radius: 10px;
+    border: 2px solid rgb(255, 67, 95);
+    width: 80%;
+    overflow: hidden;
+    margin: auto;
+}
 
 
 
