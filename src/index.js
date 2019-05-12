@@ -160,7 +160,7 @@ class Game extends React.Component{
                 <Pod type="up" position={this.state.pod1Controller.position}/>
                 <Pod type="down" position={this.state.pod2Controller.position}/>
                 <Ball position={this.state.ballController.ballPos}/>
-                <div class="starttext">{!this.state.started ? startText : ""}</div>
+                <div className="starttext">{!this.state.started ? startText : ""}</div>
                 <Menu data={menuData}
                     toggleAutostart={()=>this.toggleAutostart()}
                     changeSpeed={(speed)=>this.changeGameSpeed(speed)}
