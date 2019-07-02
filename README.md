@@ -1,5 +1,5 @@
 Simple Pong with neural network learning mechanism, written in js ES6 standard. 
-Make possibility to see how fast neural network can learn simple things - just like playing a pong
+Makes possibility to see how fast neural network can learn simple things - just like playing a pong
 ![presentation](presentation.png)
 Avialiable at: neural.ct8.pl
 
